@@ -81,7 +81,7 @@ jobs:
           python-version: '3.x'
       
       - name: Install dependencies
-        run: pip install pyyaml
+        run: python -m pip install -r requirements.txt
       
       - name: Evaluate constitutional compliance
         run: |
@@ -175,7 +175,7 @@ jobs:
           python-version: '3.x'
       
       - name: Install dependencies
-        run: pip install pyyaml
+        run: python -m pip install -r requirements.txt
       
       - name: Check for evidence
         run: |

@@ -1,0 +1,2 @@
+# Python dependencies for agent orchestration tools and CI workflows
+PyYAML>=6.0.1
