@@ -261,7 +261,7 @@ Reviews typically happen within a few days. Be patient and responsive to feedbac
 
 ## License
 
-By contributing, you agree that your contributions will be licensed under the same license as the project (to be determined - likely Apache 2.0 or MIT).
+By contributing, you agree that your contributions will be licensed under the same license as the project (MIT License). See [LICENSE](LICENSE) for details.
 
 ## Recognition
 
