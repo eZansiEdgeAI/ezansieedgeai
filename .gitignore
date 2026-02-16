@@ -2,6 +2,15 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
 
 # Virtual environments
 .venv/
@@ -11,3 +20,70 @@ ENV/
 # OS / editor
 .DS_Store
 .vscode/
+
+# AI Model Files (too large for git)
+*.bin
+*.gguf
+*.onnx
+*.pt
+*.pth
+*.safetensors
+*.ckpt
+*.tflite
+*.h5
+*.pb
+
+# Model directories
+models/phone-models/*.bin
+models/phone-models/*.gguf
+models/phone-models/*.onnx
+models/edge-models/*.bin
+models/edge-models/*.onnx
+models/edge-models/*.pt
+
+# Android
+*.apk
+*.aab
+*.ap_
+*.dex
+*.class
+local.properties
+.gradle/
+.idea/
+*.iml
+*.iws
+*.ipr
+captures/
+.externalNativeBuild/
+.cxx/
+build/
+app/build/
+
+# iOS (for future)
+*.xcworkspace
+*.xcodeproj
+Pods/
+*.ipa
+
+# Content Packs (large files)
+*.pack
+*.contentpack
+content-packs/
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+*.cover
+
+# Environment
+.env
+.env.local
+
