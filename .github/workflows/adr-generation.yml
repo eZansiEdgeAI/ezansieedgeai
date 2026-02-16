@@ -1,0 +1,218 @@
+name: ADR Generation
+
+on:
+  workflow_dispatch:
+    inputs:
+      title:
+        description: 'ADR Title (e.g., "Use React Native for mobile app")'
+        required: true
+      context:
+        description: 'Context and motivation for this decision'
+        required: true
+      decision:
+        description: 'The decision being made'
+        required: true
+      consequences:
+        description: 'Positive and negative consequences'
+        required: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  generate-adr:
+    name: Generate Architecture Decision Record
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Get next ADR number
+        id: adr_number
+        run: |
+          # Find the highest ADR number
+          cd docs/adr
+          highest=$(ls ADR-*.md 2>/dev/null | sed 's/ADR-//;s/-.*//;s/^0*//' | sort -n | tail -1)
+          if [ -z "$highest" ]; then
+            next="001"
+          else
+            next=$(printf "%03d" $((highest + 1)))
+          fi
+          echo "number=$next" >> $GITHUB_OUTPUT
+          echo "Next ADR number: $next"
+      
+      - name: Create ADR branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b adr/ADR-${{ steps.adr_number.outputs.number }}-$(echo "${{ github.event.inputs.title }}" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
+      
+      - name: Generate ADR file
+        run: |
+          ADR_NUM="${{ steps.adr_number.outputs.number }}"
+          TITLE="${{ github.event.inputs.title }}"
+          CONTEXT="${{ github.event.inputs.context }}"
+          DECISION="${{ github.event.inputs.decision }}"
+          CONSEQUENCES="${{ github.event.inputs.consequences }}"
+          
+          # Sanitize title for filename
+          FILENAME_TITLE=$(echo "$TITLE" | tr '[:upper:]' '[:lower:]' | tr ' ' '-' | sed 's/[^a-z0-9-]//g')
+          FILENAME="docs/adr/ADR-${ADR_NUM}-${FILENAME_TITLE}.md"
+          
+          cat > "$FILENAME" << EOF
+          # ADR-${ADR_NUM}: ${TITLE}
+          
+          ## Status
+          Proposed
+          
+          ## Date
+          $(date +%Y-%m-%d)
+          
+          ## Context
+          ${CONTEXT}
+          
+          ## Decision
+          ${DECISION}
+          
+          ## Consequences
+          
+          ### Positive
+          ${CONSEQUENCES}
+          
+          ### Negative
+          (To be filled in)
+          
+          ### Neutral
+          (To be filled in)
+          
+          ## Compliance
+          
+          ### Aligns With
+          - (To be filled in)
+          
+          ### Enables
+          - (To be filled in)
+          
+          ### Requires
+          - (To be filled in)
+          
+          ## Related Decisions
+          - (Link to related ADRs)
+          
+          ## Notes
+          
+          ### Implementation Implications
+          (To be filled in)
+          
+          ### Alternative Considered
+          (To be filled in)
+          
+          ### Success Criteria
+          (To be filled in)
+          
+          ### Review Date
+          (To be determined)
+          EOF
+          
+          echo "Created $FILENAME"
+      
+      - name: Commit ADR
+        run: |
+          git add docs/adr/ADR-*.md
+          git commit -m "Add ADR-${{ steps.adr_number.outputs.number }}: ${{ github.event.inputs.title }}"
+          git push origin HEAD
+      
+      - name: Create Pull Request
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: pr } = await github.rest.pulls.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `ADR-${{ steps.adr_number.outputs.number }}: ${{ github.event.inputs.title }}`,
+              head: context.ref.replace('refs/heads/', ''),
+              base: 'main',
+              body: `## Architecture Decision Record
+              
+              This PR adds ADR-${{ steps.adr_number.outputs.number }} documenting the decision: **${{ github.event.inputs.title }}**
+              
+              ### Context
+              ${{ github.event.inputs.context }}
+              
+              ### Decision
+              ${{ github.event.inputs.decision }}
+              
+              ### Next Steps
+              - [ ] Review and refine the ADR content
+              - [ ] Fill in consequences (positive, negative, neutral)
+              - [ ] Document compliance with existing ADRs
+              - [ ] List alternatives considered
+              - [ ] Define success criteria
+              - [ ] Get team approval
+              - [ ] Update status to "Accepted" when approved
+              
+              ---
+              
+              **Note**: This ADR was generated automatically. Please review and enhance it with additional details before merging.
+              
+              See [ADR-000-template.md](docs/adr/ADR-000-template.md) for the template and guidance.
+              `
+            });
+            
+            console.log(`Created PR #${pr.number}`);
+      
+      - name: Add labels
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              labels: ['documentation', 'architecture', 'adr']
+            });
+
+  validate-adr:
+    name: Validate ADR Format
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Check ADR format
+        run: |
+          echo "Validating ADR format..."
+          
+          # Check for required sections
+          for adr in docs/adr/ADR-*.md; do
+            if [ "$adr" = "docs/adr/ADR-000-template.md" ]; then
+              continue
+            fi
+            
+            echo "Checking $adr..."
+            
+            required_sections=(
+              "## Status"
+              "## Date"
+              "## Context"
+              "## Decision"
+              "## Consequences"
+            )
+            
+            for section in "${required_sections[@]}"; do
+              if ! grep -q "^${section}" "$adr"; then
+                echo "❌ Missing section: $section in $adr"
+                exit 1
+              fi
+            done
+            
+            echo "✅ $adr format is valid"
+          done
+          
+          echo "All ADRs validated successfully!"

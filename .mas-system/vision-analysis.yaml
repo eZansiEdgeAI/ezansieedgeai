@@ -1,0 +1,109 @@
+architecture_hints:
+- "High-Level System Architecture  \n  \n### Phone (Primary Runtime)  \nHandles: \
+  \ \n- Question input  \n- Local content retrieval  \n- Local explanation generation\
+  \  \n- Learner preference shaping  \n- Local storage of packs  \n  \n  \n  \n###\
+  \ Optional School Node (WiFi Only)  \nProvides:  \n- Content pack updates  \n- Speech\
+  \ services (future phase)  \n- Optional heavier compute support  \n  \nImportant:\
+  \  \nIf node is offline \u2192 learning must still work"
+- "How This Also Becomes A Teaching Platform  \n  \nThis project demonstrates to students:\
+  \  \n  \nTechnology success is about:  \n- Problem understanding  \n- Constraints\
+  \  \n- Intent clarity  \n- Architecture discipline  \n  \nNot:  \n\u201CBiggest\
+  \ model wins\u201D  \n  \n  \n## 13"
+- This is open, enabling infrastructure for inclusion in an AI world
+- "Key realities we are designing for:  \n  \n- Expensive mobile data  \n- Inconsistent\
+  \ connectivity  \n- Low-end device availability  \n- Large inequality gaps between\
+  \ schools and communities  \n- Language diversity  \n- Limited teacher time for\
+  \ individual learner support  \n  \nThis is not a commercial profit-driven system"
+- "Strategic Direction Adjustment  \n  \n### Old Implicit Direction  \n\u201COffline\
+  \ AI assistant\u201D  \n  \n### New Explicit Direction  \nOffline Knowledge + Explanation\
+  \ Engine, Grounded in Curriculum Content  \n  \nThis changes everything in a good\
+  \ way"
+constraints: []
+domain: education
+goals:
+  long_term: []
+  short_term:
+  - English base
+  - Afrikaans support
+  - Selected African language phrase layer
+  - Community dataset contribution
+  - Teacher assisted corpus building
+  - On-device phrase translation fallback
+  - '*Deployment Modes**'
+  - "*Mode A \u2013 Phone Only**"
+  - "*Mode B \u2013 Phone + School Edge WiFi**"
+  - "*Mode C \u2013 Community Hub Device**"
+  - '*V1 Scope**'
+  - '*Must Have**'
+  - Offline chat tutoring
+  - Offline content pack loading
+  - Local learner preference profile
+  - WiFi discovery of school node
+  - Basic STT via school node
+  - Basic TTS via school node
+  - '*Nice To Have**'
+  - Peer content sharing
+  - Offline multiplayer learning games
+  - Teacher dashboard (local only)
+  - '*What We Explicitly Are NOT Building initially**'
+  - Cloud dashboards
+  - Central learner analytics
+  - Real-time internet AI augmentation
+  - Payment / subscription anything
+  - Heavy model fine tuning
+  - '*Teaching Value**'
+  - Why constraints matter
+  - Why architecture is trade-offs
+  - Why documentation enables teams
+  - How AI can build from clear specs
+  - "Why \u201Cperfect solution\u201D does not always equal a deployable solution"
+  - '*AI-Assisted Development Experiment**'
+  - A spec
+  - A teaching framework
+  - A reference architecture
+  - '*Risks **'
+  - '*Technical**'
+  - On-device model performance variance
+  - Battery impact
+  - '*Social**'
+  - Teacher adoption
+  - Training requirements
+  - '*Operational**'
+  - Update distribution
+  - Device lifecycle management
+  - '*Success Metrics**'
+  - Works offline reliably
+  - Runs on low-mid Android devices
+  - Teachers can install without IT support
+  - Learners can use without training
+  - No cost barrier
+  - '*Long Term Vision**'
+  - Community contributed content packs
+  - Language expansion via dataset growth
+  - Hybrid edge/cloud optional extension
+  - Integration with future low-cost AI accelerators
+  - '*Final Philosophy**'
+mission: '# eZansiEdgeAI: Strategic Direction Reset & Forward Plan'
+principles:
+- '*Technical**'
+- Runs on low-mid Android devices
+- Teachers can install without IT support
+- '*Final Philosophy**'
+- Why architecture is trade-offs
+- Battery impact
+- Why documentation enables teams
+- '*Risks **'
+- '*Success Metrics**'
+- Why constraints matter
+stakeholders:
+- we
+- grade
+- students
+- ezans
+- ai
+success_criteria: []
+values:
+- reliable
+- fast
+- accessible
+- open

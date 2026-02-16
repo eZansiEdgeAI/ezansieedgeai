@@ -1,0 +1,214 @@
+# PR Merge Constitution
+# This document was automatically generated from the project vision.
+# Generated: 2026-02-16 23:07:07
+# Source: /home/mcfuzzysquirrel/Projects/ezansieedgeai/docs/product/vision.md
+
+version: '1.0'
+last_updated: '2026-02-16'
+generated_from: /home/mcfuzzysquirrel/Projects/ezansieedgeai/docs/product/vision.md
+domain: education
+core_principles:
+  how_ai_can_build_from_clear_specs:
+    description: How AI can build from clear specs
+    enforcement: mandatory
+    checks:
+    - Implementation aligns with principle
+    - Principle considered in design
+    - No violations of principle
+  on_device_model_performance_variance:
+    description: On-device model performance variance
+    enforcement: mandatory
+    checks:
+    - Implementation aligns with principle
+    - Mobile-friendly implementation
+    - Works on target mobile devices
+  long_term_vision:
+    description: '*Long Term Vision**'
+    enforcement: mandatory
+    checks:
+    - Implementation aligns with principle
+    - Principle considered in design
+    - No violations of principle
+  hybrid_edgecloud_optional_extension:
+    description: Hybrid edge/cloud optional extension
+    enforcement: mandatory
+    checks:
+    - Implementation aligns with principle
+    - Principle considered in design
+    - No violations of principle
+  final_philosophy:
+    description: '*Final Philosophy**'
+    enforcement: mandatory
+    checks:
+    - Implementation aligns with principle
+    - Principle considered in design
+    - No violations of principle
+  why_perfect_solution_does_not_always_equ:
+    description: "Why \u201Cperfect solution\u201D does not always equal a deployable\
+      \ solution"
+    enforcement: mandatory
+    checks:
+    - Implementation aligns with principle
+    - Principle considered in design
+    - No violations of principle
+  battery_impact:
+    description: Battery impact
+    enforcement: mandatory
+    checks:
+    - Implementation aligns with principle
+    - Principle considered in design
+    - No violations of principle
+technical_requirements:
+  device_compatibility:
+    description: Ensure compatibility with target devices
+    checks:
+    - Tested on target devices or emulators
+    - Performance within acceptable range
+    - No crashes on target platforms
+    - Resource usage acceptable
+  performance:
+    description: Meet performance requirements
+    checks:
+    - Performance benchmarks run
+    - No performance regressions
+    - Response times acceptable
+    - Resource usage optimized
+code_quality:
+  testing:
+    requirements:
+      unit_tests: Required for new code
+      integration_tests: Required for key workflows
+      coverage: Maintain or improve
+    checks:
+    - Tests written and passing
+    - Coverage requirements met
+    - Key scenarios tested
+    - Tests are maintainable
+  documentation:
+    required:
+    - Code comments for complex logic
+    - API documentation for public interfaces
+    - README updates if needed
+    - ADR for architectural decisions
+    checks:
+    - Documentation updated
+    - Changes explained in PR
+    - Examples provided where helpful
+    - Breaking changes documented
+  code_style:
+    requirements:
+    - Follows project conventions
+    - Linter passes
+    - Consistent formatting
+    - Meaningful names
+    checks:
+    - Linter passes
+    - Style guide followed
+    - No warnings introduced
+    - Code review approved
+security:
+  data_protection:
+    requirements:
+    - Sensitive data encrypted at rest
+    - Secure communication (HTTPS)
+    - Input validation present
+    - No hardcoded secrets
+    checks:
+    - Security scan passes
+    - No known vulnerabilities
+    - Secrets properly managed
+    - Input sanitized
+architecture:
+  vision_compliance:
+    description: Changes must align with project vision
+    checks:
+    - Aligns with stated mission
+    - Follows vision principles
+    - Supports vision goals
+    - No conflicts with vision constraints
+  pattern_consistency:
+    description: Follow established code patterns
+    checks:
+    - Uses existing patterns where applicable
+    - New patterns justified and documented
+    - Consistent with architecture
+    - No architectural violations
+breaking_changes:
+  allowed: true
+  conditions:
+  - Clearly documented
+  - Migration path provided
+  - Justified by significant benefit
+  - Approved by maintainers
+  required_docs:
+  - BREAKING CHANGE tag in commit
+  - Migration guide
+  - Deprecation timeline
+  - Backward compatibility plan if possible
+enforcement_levels:
+  critical:
+    description: Must pass, no exceptions
+    applies_to:
+    - core_principles
+    - security
+    action: Block merge
+  required:
+    description: Must pass or have approved exception
+    applies_to:
+    - technical_requirements
+    - code_quality (testing, documentation)
+    - architecture
+    action: Block merge or require approval
+  recommended:
+    description: Should pass, exceptions allowed with justification
+    applies_to:
+    - code_style (minor issues)
+    - performance (context-dependent)
+    action: Warning, require justification
+review_process:
+  automated_checks:
+  - Linter
+  - Unit tests
+  - Security scan
+  - Coverage check
+  - Build verification
+  enforcement_agents:
+    constitutional_judge:
+      checks: core_principles
+      authority: Block merge
+    security_enforcement:
+      checks: security
+      authority: Block merge
+    quality_enforcement:
+      checks: code_quality
+      authority: Request changes
+  human_review:
+    required_for:
+    - Architectural changes
+    - Breaking changes
+    - Security-sensitive changes
+    - New dependencies
+    reviewers: Maintainers
+    approval_count: 1
+exceptions:
+  allowed: true
+  process:
+  - Document reason for exception
+  - Propose alternative compliance
+  - Get approval from maintainer
+  - Create issue to address properly
+  documentation:
+  - Exception noted in PR
+  - Follow-up issue created
+  - Timeline for proper fix
+  - Risk assessment
+metrics:
+  tracked:
+  - First-time approval rate
+  - Common failure reasons
+  - Time to merge
+  - Rework frequency
+  reporting:
+  - Weekly summary
+  - Trend analysis
+  - Process improvements

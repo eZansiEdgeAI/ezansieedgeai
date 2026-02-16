@@ -1,0 +1,73 @@
+agents:
+- agent_id: master-coordinator
+  authority: coordinate
+  responsibilities:
+  - Sprint planning
+  - Task assignment
+  - Progress tracking
+  - Blocker resolution
+  role: Orchestrate overall system execution
+  title: Master Coordination Agent
+  type: coordination
+- agent_id: task-dispatcher
+  authority: assign
+  responsibilities:
+  - Task analysis
+  - Agent matching
+  - Load balancing
+  - Priority management
+  role: Assign tasks to appropriate agents
+  title: Task Dispatcher Agent
+  type: coordination
+- agent_id: implementation-agent
+  authority: implement
+  role: Implement features and functionality
+  title: Implementation Agent
+  type: development
+- agent_id: test-agent
+  authority: validate
+  role: Ensure quality through testing
+  title: Quality Assurance Agent
+  type: development
+- agent_id: documentation-agent
+  authority: document
+  role: Maintain project documentation
+  title: Documentation Agent
+  type: development
+- agent_id: mobile-agent
+  authority: implement
+  role: Develop mobile applications
+  title: Mobile Development Agent
+  type: development
+- agent_id: api-agent
+  authority: implement
+  role: Design and implement APIs
+  title: API Development Agent
+  type: development
+- agent_id: constitutional-judge
+  authority: enforce
+  responsibilities:
+  - Review changes for principle violations
+  - Validate vision alignment
+  - Enforce core laws
+  role: Ensure compliance with constitution
+  title: Constitutional Judge Agent
+  type: enforcement
+- agent_id: security-enforcer
+  authority: enforce
+  responsibilities:
+  - Security scanning
+  - Vulnerability detection
+  - Secret detection
+  role: Ensure security standards
+  title: Security Enforcement Agent
+  type: enforcement
+- agent_id: quality-enforcer
+  authority: enforce
+  responsibilities:
+  - Code quality checks
+  - Test coverage validation
+  - Performance validation
+  role: Ensure quality standards
+  title: Quality Enforcement Agent
+  type: enforcement
