@@ -85,22 +85,22 @@ goals:
   - '*Final Philosophy**'
 mission: '# eZansiEdgeAI: Strategic Direction Reset & Forward Plan'
 principles:
-- "Why \u201Cperfect solution\u201D does not always equal a deployable solution"
-- Why documentation enables teams
-- A spec
-- How AI can build from clear specs
-- Language expansion via dataset growth
-- '*Final Philosophy**'
-- Update distribution
+- '*Technical**'
 - Runs on low-mid Android devices
+- Teachers can install without IT support
+- '*Final Philosophy**'
+- Why architecture is trade-offs
 - Battery impact
-- '*Social**'
+- Why documentation enables teams
+- '*Risks **'
+- '*Success Metrics**'
+- Why constraints matter
 stakeholders:
-- thes
+- we
+- grade
 - students
 - ezans
-- it
-- schools
+- ai
 success_criteria: []
 values:
 - reliable

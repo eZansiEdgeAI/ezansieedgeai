@@ -1,26 +1,25 @@
 core_laws:
 - enforcement: automatic
   id: LAW-001
-  principle: "Why \u201Cperfect solution\u201D does not always equal a deployable\
-    \ solution"
+  principle: '*Technical**'
   violation_action: reject
 - enforcement: automatic
   id: LAW-002
-  principle: Why documentation enables teams
+  principle: Runs on low-mid Android devices
   violation_action: reject
 - enforcement: automatic
   id: LAW-003
-  principle: A spec
+  principle: Teachers can install without IT support
   violation_action: reject
 - enforcement: automatic
   id: LAW-004
-  principle: How AI can build from clear specs
+  principle: '*Final Philosophy**'
   violation_action: reject
 - enforcement: automatic
   id: LAW-005
-  principle: Language expansion via dataset growth
+  principle: Why architecture is trade-offs
   violation_action: reject
-created: '2026-02-16T22:36:05.458894'
+created: '2026-02-16T23:07:43.703852'
 decision_framework:
   agent_authority:
     escalate: Vision/principle changes
