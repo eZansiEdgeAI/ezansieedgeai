@@ -255,8 +255,12 @@ jobs:
     steps:
       - name: Generate summary
         uses: actions/github-script@v7
+        env:
+          NEEDS_CONTEXT: ${{ toJSON(needs) }}
         with:
           script: |
+            const needs = JSON.parse(process.env.NEEDS_CONTEXT);
+            
             const summary = `## 🎯 Autonomous Agent System Status
             
             ### Actions Completed
