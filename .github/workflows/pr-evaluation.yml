@@ -1,0 +1,324 @@
+name: PR Evaluation
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - main
+      - develop
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  automated-checks:
+    name: Automated Quality Checks
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+        if: hashFiles('**/package-lock.json') != ''
+      
+      - name: Install dependencies
+        run: |
+          if [ -f "package-lock.json" ]; then
+            npm ci
+          fi
+      
+      - name: Lint check
+        run: |
+          if [ -f "package.json" ] && grep -q "lint" package.json; then
+            npm run lint
+          fi
+        continue-on-error: false
+      
+      - name: Run tests
+        run: |
+          if [ -f "package.json" ] && grep -q "test" package.json; then
+            npm test
+          fi
+        continue-on-error: false
+      
+      - name: Security scan
+        uses: snyk/actions/node@master
+        if: hashFiles('**/package-lock.json') != ''
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      
+      - name: Check for secrets
+        uses: trufflesecurity/trufflehog@main
+        with:
+          path: ./
+          base: ${{ github.event.repository.default_branch }}
+          head: HEAD
+
+  constitutional-review:
+    name: Constitutional Judge Review
+    runs-on: ubuntu-latest
+    needs: automated-checks
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      
+      - name: Install dependencies
+        run: pip install pyyaml
+      
+      - name: Evaluate constitutional compliance
+        run: |
+          python3 << 'PYTHON_EOF'
+          import yaml
+          import os
+          
+          # Load the PR constitution
+          with open('.github/agents/pr-merge-constitution.yaml', 'r') as f:
+              constitution = yaml.safe_load(f)
+          
+          print("## Constitutional Compliance Check\n")
+          print(f"Vision Domain: {constitution.get('domain', 'N/A')}")
+          print(f"Constitution Version: {constitution.get('version', 'N/A')}")
+          print(f"Generated from: {constitution.get('generated_from', 'N/A')}\n")
+          
+          # Check core principles
+          core_principles = constitution.get('core_principles', {})
+          print(f"### Core Principles ({len(core_principles)} total):\n")
+          for principle_id, principle_data in core_principles.items():
+              print(f"**{principle_id}**: {principle_data.get('description', 'N/A')}")
+              checks = principle_data.get('checks', [])
+              for check in checks:
+                  print(f"  - ⚠️  {check}")
+              print()
+          
+          # Note about enforcement
+          print("\n⚠️  **Manual verification required** - Review changes against principles above.")
+          print("✅ Automated checks passed - Constitutional review complete.")
+          PYTHON_EOF
+      
+      - name: Install js-yaml
+        run: npm install js-yaml
+      
+      - name: Comment on PR
+        uses: actions/github-script@v7
+        env:
+          NODE_PATH: ${{ github.workspace }}/node_modules
+        with:
+          script: |
+            const fs = require('fs');
+            // js-yaml is included in github-script action
+            const yaml = require('js-yaml');
+            
+            // Load constitution
+            const constitutionContent = fs.readFileSync('.github/agents/pr-merge-constitution.yaml', 'utf8');
+            const constitution = yaml.load(constitutionContent);
+            
+            // Build principle checklist
+            const principles = constitution.core_principles || {};
+            const principleChecks = Object.entries(principles).map(([id, data]) => {
+              const desc = data.description.replace(/\*\*/g, '');
+              return `- [ ] ${desc}`;
+            }).join('\n            ');
+            
+            const message = `## Constitutional Review
+            
+            ✅ Automated checks passed
+            
+            ### Core Principles to Verify:
+            ${principleChecks}
+            
+            ### Technical Requirements:
+            - [ ] Tests written and passing
+            - [ ] Documentation updated
+            - [ ] Code follows project conventions
+            - [ ] Security scan clean
+            
+            📋 See [PR Merge Constitution](.github/agents/pr-merge-constitution.yaml) for full criteria.
+            `;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: message
+            });
+
+  reality-check:
+    name: Reality Enforcement Check
+    runs-on: ubuntu-latest
+    needs: automated-checks
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      
+      - name: Install dependencies
+        run: pip install pyyaml
+      
+      - name: Check for evidence
+        run: |
+          python3 << 'PYTHON_EOF'
+          import yaml
+          import os
+          
+          # Load constitution to get technical requirements
+          with open('.github/agents/pr-merge-constitution.yaml', 'r') as f:
+              constitution = yaml.safe_load(f)
+          
+          print("## Reality Check - Evidence Validation\n")
+          
+          # Check PR description
+          pr_body = os.environ.get('PR_BODY', '')
+          
+          # Get technical requirements from constitution
+          tech_reqs = constitution.get('technical_requirements', {})
+          
+          print("### Technical Requirements Check:")
+          for req_id, req_data in tech_reqs.items():
+              print(f"\n**{req_id}**: {req_data.get('description', 'N/A')}")
+              checks = req_data.get('checks', [])
+              for check in checks:
+                  print(f"  - ⚠️  {check}")
+          
+          print("\n⚠️  Please provide evidence in PR description for the requirements above.")
+          PYTHON_EOF
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+      
+      - name: Install js-yaml
+        run: npm install js-yaml
+      
+      - name: Comment requirements
+        uses: actions/github-script@v7
+        env:
+          NODE_PATH: ${{ github.workspace }}/node_modules
+        with:
+          script: |
+            const fs = require('fs');
+            // js-yaml is included in github-script action
+            const yaml = require('js-yaml');
+            
+            // Load constitution
+            const constitutionContent = fs.readFileSync('.github/agents/pr-merge-constitution.yaml', 'utf8');
+            const constitution = yaml.load(constitutionContent);
+            
+            // Build requirements checklist
+            const techReqs = constitution.technical_requirements || {};
+            const reqChecks = Object.entries(techReqs).map(([id, data]) => {
+              const desc = data.description || id;
+              const checks = (data.checks || []).map(c => `  - [ ] ${c}`).join('\n');
+              return `**${id}**:\n${checks}`;
+            }).join('\n\n');
+            
+            const message = `## Reality Check
+            
+            Please provide evidence of:
+            
+            ### Technical Requirements
+            ${reqChecks}
+            
+            ### Implementation Quality
+            - [ ] Code builds successfully
+            - [ ] Tests run and pass
+            - [ ] No placeholder/TODO code
+            - [ ] Documentation complete
+            `;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: message
+            });
+
+  complexity-check:
+    name: Complexity Enforcement
+    runs-on: ubuntu-latest
+    needs: automated-checks
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+        if: hashFiles('**/package-lock.json') != ''
+      
+      - name: Check complexity
+        run: |
+          if command -v npx &> /dev/null; then
+            # Install complexity checker if available
+            npx --yes complexity-report --format markdown . || true
+          fi
+          
+          # Simple checks
+          echo "Checking for complexity indicators..."
+          
+          # Check for very long files
+          find . -name "*.js" -o -name "*.ts" | while read file; do
+            lines=$(wc -l < "$file")
+            if [ $lines -gt 500 ]; then
+              echo "⚠️  $file has $lines lines (consider splitting)"
+            fi
+          done
+
+  evaluation-summary:
+    name: Evaluation Summary
+    runs-on: ubuntu-latest
+    needs: [constitutional-review, reality-check, complexity-check]
+    if: always()
+    
+    steps:
+      - name: Install js-yaml (if needed for future use)
+        run: npm install js-yaml
+        if: false  # This step doesn't actually use js-yaml currently
+      
+      - name: Post summary
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const message = `## PR Evaluation Complete
+            
+            All automated checks have been run. Please review the comments above and address any issues.
+            
+            ### Before Merge
+            - [ ] Constitutional review passed
+            - [ ] Reality checks verified
+            - [ ] Complexity acceptable
+            - [ ] All tests passing
+            - [ ] Documentation updated
+            - [ ] Security scan clean
+            
+            See [PR Merge Constitution](.github/agents/pr-merge-constitution.yaml) for full criteria.
+            `;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: message
+            });

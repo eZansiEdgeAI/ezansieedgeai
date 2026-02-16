@@ -1,0 +1,100 @@
+core_laws:
+- enforcement: automatic
+  id: LAW-001
+  principle: "Why \u201Cperfect solution\u201D does not always equal a deployable\
+    \ solution"
+  violation_action: reject
+- enforcement: automatic
+  id: LAW-002
+  principle: Why documentation enables teams
+  violation_action: reject
+- enforcement: automatic
+  id: LAW-003
+  principle: A spec
+  violation_action: reject
+- enforcement: automatic
+  id: LAW-004
+  principle: How AI can build from clear specs
+  violation_action: reject
+- enforcement: automatic
+  id: LAW-005
+  principle: Language expansion via dataset growth
+  violation_action: reject
+created: '2026-02-16T22:36:05.458894'
+decision_framework:
+  agent_authority:
+    escalate: Vision/principle changes
+    implement: Implementation details
+    propose: Architectural changes
+  approval_levels:
+    architecture: enforcement-agent
+    code: any-agent
+    vision: human
+  review_required:
+  - Breaking changes
+  - New dependencies
+  - Architecture decisions
+  - Security changes
+enforcement:
+  agent_review:
+  - Code review
+  - Architecture review
+  - Complexity review
+  automatic:
+  - Linting
+  - Tests
+  - Security scans
+  human_approval:
+  - Vision changes
+  - Release decisions
+  - Major pivots
+escalation:
+  architecture_conflict: enforcement-agent
+  resource_constraint: human
+  technical_blocker: coordination-agent
+  vision_conflict: human
+principles:
+- description: All work must align with project vision
+  id: PRIN-001
+  name: Vision Alignment
+  validation: Check against vision goals
+- description: Quality cannot be compromised for speed
+  id: PRIN-002
+  name: Quality First
+  validation: All quality gates must pass
+- description: Choose simple solutions over complex
+  id: PRIN-003
+  name: Simplicity
+  validation: Complexity review required
+quality_gates:
+- checks:
+  - linting
+  - tests
+  - coverage
+  name: Code Quality
+  required: true
+- checks:
+  - goals
+  - principles
+  - constraints
+  name: Vision Alignment
+  required: true
+- checks:
+  - vulnerability-scan
+  - secrets-check
+  name: Security
+  required: true
+- checks:
+  - wcag
+  - screen-reader
+  name: Accessibility
+  required: true
+review_criteria:
+- Aligns with vision
+- Follows principles
+- Meets quality gates
+- Has adequate tests
+- Documentation updated
+- No security issues
+source_vision: /home/mcfuzzysquirrel/Projects/ezansieedgeai/docs/product/vision.md
+version: '1.0'

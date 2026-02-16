@@ -1,0 +1,75 @@
+conflict_resolution:
+  design_conflict: Consult constitution and vision
+  priority_conflict: Sprint goal alignment
+  resource_conflict: Critical path priority
+  technical_conflict: Enforcement agent decision
+  vision_conflict: Human escalation
+coordination_patterns:
+  divide_conquer: Large task split among multiple agents
+  parallel: Independent tasks executed simultaneously
+  review_iterate: Cycles of implementation and review
+  sequential: Tasks with dependencies executed in order
+created: '2026-02-16T22:36:05.459139'
+message_formats:
+  decision_request:
+    agent: string
+    decision: string
+    options: array
+    rationale: string
+    recommendation: string
+  status_update:
+    agent: string
+    context: array
+    progress: object
+    status:
+    - in-progress
+    - completed
+    - blocked
+    - failed
+    task: string
+  task_request:
+    deadline: datetime
+    from_agent: string
+    priority:
+    - high
+    - medium
+    - low
+    task: string
+    to_agent: string
+reporting_structure:
+  channels:
+    progress: PR descriptions
+    reviews: Discussion threads
+    status: GitHub Issues
+  frequency:
+    progress_reports: weekly
+    sprint_reviews: end_of_sprint
+    status_updates: daily
+state_management:
+  agent_coordination: Coordination issues
+  code_changes: Pull Requests
+  decisions: ADRs in docs/adr/
+  sprint_plan: YAML file in tools/agent-orchestration/
+  task_status: GitHub Issues
+version: '1.0'
+workflows:
+  architecture_decision:
+  - Problem Analysis
+  - Options Exploration
+  - Decision Proposal
+  - Review
+  - ADR Creation
+  - Implementation
+  bug_fix:
+  - Investigation
+  - Fix Implementation
+  - Testing
+  - Review
+  - Deployment
+  feature_development:
+  - Design
+  - Implementation
+  - Testing
+  - Review
+  - Documentation
+  - Deployment
