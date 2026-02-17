@@ -44,6 +44,36 @@ agents:
   role: Design and implement APIs
   title: API Development Agent
   type: development
+- agent_id: autonomous-sprint-driver
+  authority: coordinate
+  responsibilities:
+  - Drive sprint execution from plan to completion
+  - Monitor task progress and identify blockers
+  - Trigger agent task pickup from sprint plan
+  - Generate progress reports and status updates
+  role: Drive sprint execution by coordinating task pickup and tracking progress
+  title: Autonomous Sprint Driver Agent
+  type: coordination
+- agent_id: multi-agent-collaboration
+  authority: coordinate
+  responsibilities:
+  - Coordinate work between agents on dependent tasks
+  - Manage task handoffs and integration points
+  - Resolve conflicts between agent outputs
+  - Track cross-agent dependencies
+  role: Facilitate collaboration between agents on related or dependent tasks
+  title: Multi-Agent Collaboration Agent
+  type: coordination
+- agent_id: task-breakdown
+  authority: assign
+  responsibilities:
+  - Decompose epics and stories into actionable tasks
+  - Estimate task complexity and effort
+  - Identify task dependencies and sequencing
+  - Recommend appropriate agent assignments
+  role: Break down epics and stories into actionable tasks for agent execution
+  title: Task Breakdown Agent
+  type: coordination
 - agent_id: constitutional-judge
   authority: enforce
   responsibilities:
