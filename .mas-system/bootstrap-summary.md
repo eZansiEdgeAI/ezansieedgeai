@@ -22,16 +22,19 @@
 
 ## Agent System
 
-**Total Agents**: 10
+**Total Agents**: 13
 
 ### By Type
-- Coordination: 2
+- Coordination: 5
 - Development: 5
 - Enforcement: 3
 
 ### Agent List
 - Master Coordination Agent (master-coordinator)
 - Task Dispatcher Agent (task-dispatcher)
+- Autonomous Sprint Driver Agent (autonomous-sprint-driver)
+- Multi-Agent Collaboration Agent (multi-agent-collaboration)
+- Task Breakdown Agent (task-breakdown)
 - Implementation Agent (implementation-agent)
 - Quality Assurance Agent (test-agent)
 - Documentation Agent (documentation-agent)

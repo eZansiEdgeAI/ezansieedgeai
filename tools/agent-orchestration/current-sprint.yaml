@@ -1,0 +1,122 @@
+# Initial sprint plan - generated from vision and backlog analysis
+# This file is updated by the autonomous-agent-execution workflow
+# and the vision-task-extractor tool
+
+sprint_goal: "Establish project foundation and validate technical feasibility"
+duration_days: 14
+status: initialized
+
+epics:
+  - id: "Epic 1"
+    title: "Project Foundation"
+    priority: critical
+    goal: "Establish core project structure and documentation for development to begin"
+    stories:
+      - id: "1.1"
+        title: "Initialize Project Structure"
+        status: completed
+      - id: "1.2"
+        title: "Create Architecture Documentation"
+        status: pending
+      - id: "1.3"
+        title: "Create Initial ADRs"
+        status: completed
+
+  - id: "Epic 2"
+    title: "Phase 0 - Feasibility Validation"
+    priority: critical
+    goal: "Validate technical feasibility of key architecture decisions"
+    stories:
+      - id: "2.1"
+        title: "Research On-Device Inference Options"
+        status: pending
+      - id: "2.2"
+        title: "Prototype Local Embedding + Retrieval"
+        status: pending
+      - id: "2.3"
+        title: "Validate Storage Footprint Limits"
+        status: pending
+
+tasks:
+  - id: TASK-001
+    epic: "Project Foundation"
+    story: "Create Architecture Documentation"
+    description: "Create system-overview.md with high-level architecture"
+    priority: critical
+    status: todo
+    estimated_points: 3
+    agent_type: doc-agent
+
+  - id: TASK-002
+    epic: "Project Foundation"
+    story: "Create Architecture Documentation"
+    description: "Create phone-architecture.md from vision section 6"
+    priority: critical
+    status: todo
+    estimated_points: 3
+    agent_type: doc-agent
+
+  - id: TASK-003
+    epic: "Project Foundation"
+    story: "Create Architecture Documentation"
+    description: "Create edge-device-architecture.md"
+    priority: critical
+    status: todo
+    estimated_points: 3
+    agent_type: doc-agent
+
+  - id: TASK-004
+    epic: "Project Foundation"
+    story: "Create Architecture Documentation"
+    description: "Create deployment-modes.md from vision section 9"
+    priority: critical
+    status: todo
+    estimated_points: 3
+    agent_type: doc-agent
+
+  - id: TASK-005
+    epic: "Phase 0 - Feasibility Validation"
+    story: "Research On-Device Inference Options"
+    description: "Research document comparing GGUF vs ONNX vs TFLite for on-device inference"
+    priority: critical
+    status: todo
+    estimated_points: 5
+    agent_type: general-agent
+
+  - id: TASK-006
+    epic: "Phase 0 - Feasibility Validation"
+    story: "Research On-Device Inference Options"
+    description: "List candidate models with size, performance, and license analysis"
+    priority: critical
+    status: todo
+    estimated_points: 3
+    agent_type: general-agent
+
+  - id: TASK-007
+    epic: "Phase 0 - Feasibility Validation"
+    story: "Prototype Local Embedding + Retrieval"
+    description: "Create POC for local vector storage and retrieval on mobile"
+    priority: critical
+    status: todo
+    estimated_points: 5
+    agent_type: general-agent
+
+  - id: TASK-008
+    epic: "Phase 0 - Feasibility Validation"
+    story: "Validate Storage Footprint Limits"
+    description: "Determine storage requirements for V1 Grade 6 Math content pack"
+    priority: critical
+    status: todo
+    estimated_points: 3
+    agent_type: general-agent
+
+alignment:
+  vision_goals:
+    - "Offline chat tutoring"
+    - "Offline content pack loading"
+  success_criteria:
+    - "Works offline reliably"
+    - "Runs on low-mid Android devices"
+    - "Teachers can install without IT support"
+    - "Learners can use without training"
+    - "No cost barrier"
