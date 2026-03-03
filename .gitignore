@@ -70,6 +70,9 @@ Pods/
 *.contentpack
 content-packs/
 
+# EJS Database (local SQLite index, rebuilt by adr-db.py sync)
+.ejs.db
+
 # Temporary files
 *.tmp
 *.temp
