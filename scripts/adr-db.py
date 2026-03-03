@@ -35,6 +35,14 @@ try:
     import yaml
 except ImportError:
     yaml = None  # type: ignore[assignment]
+    import warnings
+    warnings.warn(
+        "PyYAML is not installed. adr-db.py will use a limited fallback parser that "
+        "only handles flat key:value frontmatter. Nested YAML structures (ejs, actors, "
+        "context) will not be parsed correctly. Install PyYAML for full functionality: "
+        "pip install pyyaml",
+        stacklevel=1,
+    )
 
 
 # ---------------------------------------------------------------------------
